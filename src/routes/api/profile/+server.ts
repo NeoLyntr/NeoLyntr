@@ -8,7 +8,7 @@ import { db } from '@/server/db';
 import { followers, likes, lynts, notifications, users, history } from '@/server/schema';
 import { eq, inArray, sql } from 'drizzle-orm';
 import { minioClient } from '@/server/minio';
-import { deleteLynt, uploadAvatar } from '../util';
+import { uploadAvatar } from '../util';
 import { readFileSync } from 'fs';
 import sanitizeHtml from 'sanitize-html';
 import { isImageNsfw, NSFW_ERROR } from '@/moderation';
@@ -380,50 +380,10 @@ export const DELETE: RequestHandler = async ({ request, cookies }) => {
 	}
 
 	try {
-		// Start a transaction
-		await db.transaction(async (tx) => {
-			// Delete notifications
-			console.log('Account deletion - ' + userId);
-			console.time('Getting all lynts');
-			const userLynts = await tx
-				.select({ id: lynts.id })
-				.from(lynts)
-				.where(eq(lynts.user_id, userId));
-			console.timeEnd('Getting all lynts');
-			console.time('Deleting all lynts');
-			for (const lynt of userLynts) {
-				await deleteLynt(lynt.id);
-			}
-			console.timeEnd('Deleting all lynts');
-			// Delete notifications
-			console.time('Deleting all notifications');
-			await tx.delete(notifications).where(eq(notifications.userId, userId));
-			await tx.delete(notifications).where(eq(notifications.sourceUserId, userId));
-			console.timeEnd('Deleting all notifications');
-			console.time('Deleting all history');
-			// Delete history
-			await tx.delete(history).where(eq(history.user_id, userId));
-			console.timeEnd('Deleting all history');
-			// Delete followers
-			console.time('Deleting all followers/following');
-			await tx.delete(followers).where(eq(followers.user_id, userId));
-			await tx.delete(followers).where(eq(followers.follower_id, userId));
-			console.timeEnd('Deleting all followers/following');
-
-			// NEW: Delete any remaining likes by the user
-			console.time('Deleting all remaining likes');
-			await tx.delete(likes).where(eq(likes.user_id, userId));
-			console.timeEnd('Deleting all remaining likes');
-
-			// Finally, delete the user
-			console.time('Deleting user');
-			const deletedUser = await tx.delete(users).where(eq(users.id, userId)).returning();
-			console.timeEnd('Deleting user');
-
-			if (deletedUser.length === 0) {
-				throw new Error('User not found');
-			}
-		});
+		const deletedUser = await db.delete(users).where(eq(users.id, userId)).returning();
+		if (deletedUser.length === 0) {
+			throw new Error('User not found');
+		}
 
 		// Clear the auth cookie
 		cookies.delete('_TOKEN__DO_NOT_SHARE', {

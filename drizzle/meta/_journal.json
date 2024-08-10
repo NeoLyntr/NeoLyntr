@@ -15,6 +15,20 @@
       "when": 1722220455698,
       "tag": "0001_overrated_deadpool",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1723290809544,
+      "tag": "0002_add_cascades",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1723300564452,
+      "tag": "0003_create_lynt_delete_trigger",
+      "breakpoints": true
     }
   ]
 }

@@ -144,25 +144,7 @@ export async function uploadAvatar(inputBuffer: Buffer, fileName: string, minioC
 }
 
 export async function deleteLynt(lyntId: string) {
-	await db.transaction(async (trx) => {
-		// Get all comments under this lynt
-		const comments = await trx.select({ id: lynts.id }).from(lynts).where(eq(lynts.parent, lyntId));
-
-		const commentIds = comments.map((comment) => comment.id);
-		const allIds = [lyntId, ...commentIds];
-
-		// Delete likes associated with the comments and the original lynt
-		await trx.delete(likes).where(inArray(likes.lynt_id, allIds));
-
-		// Delete notifications associated with the comments and the original lynt
-		await trx.delete(notifications).where(inArray(notifications.lyntId, allIds));
-
-		// Delete history entries associated with the comments and the original lynt
-		await trx.delete(history).where(inArray(history.lynt_id, allIds));
-
-		// Delete all comments under this lynt
-		await trx.delete(lynts).where(and(eq(lynts.parent, lyntId), eq(lynts.reposted, false)));
-
+	/*await db.transaction(async (trx) => {
 		// Update reposts of this lynt
 		await trx
 			.update(lynts)
@@ -173,8 +155,9 @@ export async function deleteLynt(lyntId: string) {
 			.where(and(eq(lynts.parent, lyntId), eq(lynts.reposted, true)));
 
 		// Delete the original lynt
-		await trx.delete(lynts).where(eq(lynts.id, lyntId));
-	});
+	});*/
+
+	await db.delete(lynts).where(eq(lynts.id, lyntId));
 }
 
 export async function fetchReferencedLynts(userId: string | null, parentId: string | null): Promise<any[]> {

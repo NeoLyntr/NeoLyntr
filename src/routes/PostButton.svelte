@@ -14,6 +14,7 @@
 
 	let lynt = '';
 	let opened = false;
+	let posting = false;
 
 	let image: File | null = null;
 	let imagePreview: string | null = null;
@@ -32,6 +33,8 @@
 	};
 
 	async function handlePost() {
+		if (posting) return;
+		posting = true;
 		const formData = new FormData();
 
 		formData.append('content', lynt);
@@ -40,19 +43,28 @@
 			formData.append('image', image, image.name);
 		}
 
-		const response = await fetch('api/lynt', {
-			method: 'POST',
-			body: formData
-		});
+		try {
+			const response = await fetch('api/lynt', {
+				method: 'POST',
+				body: formData
+			});
 
-		if (response.status === 201) {
-			opened = false;
-			toast('Your lynt has been published!');
-		} else {
-			if (response.status == 429)
-				return toast('Woah, slow down! You are being ratelimited. Please try again in a bit.');
-			toast(`Something happened! Error: ${response.status} | ${response.statusText}`);
+			if (response.status === 201) {
+				opened = false;
+				toast('Your lynt has been published!');
+				image = null;
+				imagePreview = null;
+				fileinput.value = null;
+				lynt = '';
+			} else {
+				if (response.status == 429)
+					return toast('Woah, slow down! You are being ratelimited. Please try again in a bit.');
+				toast(`Something happened! Error: ${response.status} | ${response.statusText}`);
+			}
+		} catch (e: any) {
+			toast(`Something happened! Error: ${e.message}`);
 		}
+		posting = false;
 	}
 </script>
 
@@ -92,7 +104,7 @@
 		</div>
 
 		<div class="flex justify-end">
-			<Form.Button on:click={handlePost}>Post</Form.Button>
+			<Form.Button on:click={handlePost} bind:disabled={posting}>Post</Form.Button>
 		</div>
 	</Dialog.Content>
 </Dialog.Root>
