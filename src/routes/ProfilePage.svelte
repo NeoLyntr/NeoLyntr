@@ -174,7 +174,7 @@
 {#if loading}
 	<LoadingSpinner />
 {:else if profile}
-	<div class="h-full w-full flex-grow overflow-hidden pl-1">
+	<div class="h-full w-full flex-grow overflow-hidden pl-1 min-w-0 max-w-full">
 		<div class="mr-[-17px] h-full overflow-y-auto overflow-x-hidden pr-[17px]">
 			<div class="mt-2">
 				<div class="flex items-center justify-between px-2">
@@ -182,7 +182,7 @@
 						<Avatar size={40} src={avatar} alt={profile.username} border={true} />
 						<div class="flex flex-col gap-2">
 							<div class="inline-flex items-center gap-2">
-								<Label class="text-2xl font-bold text-primary">{profile.username}</Label>
+								<Label class="text-2xl font-bold text-primary break-all">{profile.username}</Label>
 								{#if profile.verified}
 									<Tooltip.Root>
 										<Tooltip.Trigger>
@@ -200,7 +200,7 @@
 									</Tooltip.Root>
 								{/if}
 							</div>
-							<p class="text-xl text-muted-foreground">@{profile.handle}</p>
+							<p class="text-xl text-muted-foreground break-all">@{profile.handle}</p>
 							<div class="w-24 w-full">
 								{#if isSelf}
 									<ProfileSettings
