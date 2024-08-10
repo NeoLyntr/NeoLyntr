@@ -4,7 +4,6 @@
 	import { createEventDispatcher } from 'svelte';
 	import { Label } from '@/components/ui/label';
 	import { toast } from 'svelte-sonner';
-	import { Heart } from 'lucide-svelte';
 
 	export let icon: ComponentType<SvelteComponent>;
 	export let text: string | undefined = undefined;
@@ -77,11 +76,7 @@
 				{strokeWidth}
 				class="h-6 w-6 {text ? '{!small || isActive ? "hidden md:block" : ""}' : ''}"
 			/>
-			{#if icon === Heart}
-				<span>{text}</span>
-			{:else if text}
-				<span class="hidden md:block {!small || isActive ? '!block' : ''}">{text}</span>
-			{/if}
+			<span class="hidden md:block {!small || isActive ? '!block' : ''}">{text}</span>
 		</button>
 	{/if}
 	{#if secondary}

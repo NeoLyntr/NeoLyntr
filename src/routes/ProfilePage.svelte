@@ -6,7 +6,8 @@
 	import Avatar from './Avatar.svelte';
 	import { Button } from '@/components/ui/button';
 	import { Label } from '@/components/ui/label';
-	import { Brain, Calendar } from 'lucide-svelte';
+	import Brain from 'lucide-svelte/icons/brain';
+	import Calendar from 'lucide-svelte/icons/calendar';
 	import { Separator } from '@/components/ui/separator';
 	import FollowListPopup from './FollowListPopup.svelte';
 	import ProfileSettings from './ProfileSettings.svelte';

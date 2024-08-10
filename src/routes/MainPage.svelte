@@ -2,7 +2,11 @@
 	import { Label } from '$lib/components/ui/label';
 	import { Button } from '$lib/components/ui/button';
 	import { Separator } from '$lib/components/ui/separator';
-	import { Moon, Reply, Sun, X } from 'lucide-svelte';
+	//import { Moon, Reply, Sun, X } from 'lucide-svelte';
+	import Moon from 'lucide-svelte/icons/moon';
+	import Sun from 'lucide-svelte/icons/sun';
+	import Reply from 'lucide-svelte/icons/reply';
+	import X from 'lucide-svelte/icons/x';
 
 	import { cdnUrl, v } from './stores';
 	import { source } from 'sveltekit-sse';

@@ -8,7 +8,11 @@
 
 	import CalendarDays from 'lucide-svelte/icons/calendar-days';
 	import * as Popover from '@/components/ui/popover';
-	import { Copy, Ellipsis, Trash } from 'lucide-svelte';
+	//import { Copy, Ellipsis, Trash } from 'lucide-svelte';
+        import Copy from 'lucide-svelte/icons/copy';
+        import Ellipsis from 'lucide-svelte/icons/ellipsis';
+        import Trash from 'lucide-svelte/icons/trash';
+
 	import { toast } from 'svelte-sonner';
 	import Report from './Report.svelte';
 

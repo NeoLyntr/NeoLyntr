@@ -2,11 +2,19 @@
 	import Avatar from './Avatar.svelte';
 	import * as Popover from '@/components/ui/popover';
 	import { Button } from '@/components/ui/button';
-	import { CheckCircle, FileText, LogOut, ShieldCheck, UserX } from 'lucide-svelte';
+	//import { Sun, Moon, CheckCircle, FileText, LogOut, ShieldCheck, UserX } from 'lucide-svelte';
+	import Sun from 'lucide-svelte/icons/sun';
+	import Moon from 'lucide-svelte/icons/moon';
+	import CheckCircle from 'lucide-svelte/icons/circle-check';
+	import FileText from 'lucide-svelte/icons/file-text';
+	import LogOut from 'lucide-svelte/icons/log-out';
+	import ShieldCheck from 'lucide-svelte/icons/shield-check';
+	import UserX from 'lucide-svelte/icons/user-x';
 	import OutlineButton from './OutlineButton.svelte';
 	import { goto } from '$app/navigation';
 	import { toast } from 'svelte-sonner';
-	import { Settings } from 'lucide-svelte';
+	import Settings from 'lucide-svelte/icons/settings';
+	import { toggleMode, mode } from 'mode-watcher';
 
 	let opened = false;
 
@@ -93,6 +101,13 @@
 				outline={false}
 				small={false}
 				on:click={() => goto('/privacy')}
+			/>
+			<OutlineButton
+				icon={$mode === 'dark' ? Sun : Moon}
+				text="{$mode === 'dark' ? 'light' : 'dark'} Mode"
+				outline={false}
+				small={false}
+				on:click={toggleMode}
 			/>
 			<OutlineButton
 				icon={UserX}

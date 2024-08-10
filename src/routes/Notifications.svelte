@@ -1,6 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Bell, CalendarDays, Heart, MessageSquare, UserPlus } from 'lucide-svelte';
+	//import { Bell, CalendarDays, Heart, MessageSquare, UserPlus } from 'lucide-svelte';
+	import Bell from 'lucide-svelte/icons/bell';
+	import CalendarDays from 'lucide-svelte/icons/calendar-days';
+	import Heart from 'lucide-svelte/icons/heart';
+	import MessageSquare from 'lucide-svelte/icons/message-square';
+	import UserPlus from 'lucide-svelte/icons/user-plus';
+
 	import * as Card from '$lib/components/ui/card';
 	import { ScrollArea } from '$lib/components/ui/scroll-area/index.js';
 	import * as HoverCard from '@/components/ui/hover-card/index.js';

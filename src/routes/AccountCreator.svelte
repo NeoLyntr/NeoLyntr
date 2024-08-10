@@ -10,6 +10,7 @@
 	import { PUBLIC_DISCORD_CLIENT_ID, PUBLIC_BRAND } from '$env/static/public';
 
 	let loading = false;
+	let canContinue = false;
 	let nickname = '';
 	let username = '';
 	let iqReport: string | null;
@@ -40,6 +41,7 @@
 		}
 
 		try {
+			canContinue = false;
 			const response = await fetch('/api/profile', {
 				method: 'POST',
 				headers: {
@@ -60,6 +62,7 @@
 
 			iqReport = res.formattedText;
 			totalIQ = res.totalIQ;
+			canContinue = true;
 		} catch (error) {
 			toast(
 				'Something went wrong. This can include: your @handle being already taken; your @handle not being alphabetic ("-" is allowed); the server having an issue. Please try again later.'
@@ -75,9 +78,9 @@
 				<img
 					src="/logo.svg"
 					alt="{PUBLIC_BRAND}"
-					class="pointer-events-none h-32 w-32 select-none md:h-40 md:w-40"
+					class="pointer-events-none h-20 w-20 select-none md:h-40 md:w-40"
 				/>
-				<Label class="select-none text-8xl">{PUBLIC_BRAND}.</Label>
+				<Label class="select-none text-6xl">{PUBLIC_BRAND}.</Label>
 			</div>
 
 			<p class="text-3xl">Welcome onboard!</p>
@@ -147,7 +150,7 @@
 								</AlertDialog.Description>
 							</AlertDialog.Header>
 							<AlertDialog.Footer>
-								<AlertDialog.Action on:click={() => location.reload()}>Continue</AlertDialog.Action>
+								<AlertDialog.Action on:click={() => location.reload()} bind:disabled={canContinue}>Continue</AlertDialog.Action>
 							</AlertDialog.Footer>
 						</AlertDialog.Content>
 					</AlertDialog.Root>

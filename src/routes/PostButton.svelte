@@ -4,7 +4,7 @@
 	import * as Form from '@/components/ui/form/index';
 	import Avatar from './Avatar.svelte';
 	import { toast } from 'svelte-sonner';
-	import { ImageUp } from 'lucide-svelte';
+	import ImageUp from 'lucide-svelte/icons/image-up';
 	import { cdnUrl } from './stores';
 	import DivInput from './DivInput.svelte';
 

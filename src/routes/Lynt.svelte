@@ -2,7 +2,14 @@
 	import { cdnUrl } from './stores';
 	import { Separator } from '@/components/ui/separator';
 
-	import { BarChart2, Heart, ImageUp, MessageCircle, Repeat2, Share2 } from 'lucide-svelte';
+	//import { BarChart2, Heart, ImageUp, MessageCircle, Repeat2, Share2 } from 'lucide-svelte';
+	import BarChart2 from 'lucide-svelte/icons/bar-chart-2';
+	import Heart from 'lucide-svelte/icons/heart';
+	import ImageUp from 'lucide-svelte/icons/image-up';
+	import MessageCircle from 'lucide-svelte/icons/message-circle';
+	import Repeat2 from 'lucide-svelte/icons/repeat-2';
+	import Share2 from 'lucide-svelte/icons/share-2';
+
 	import * as Dialog from '@/components/ui/dialog/index';
 	import * as Form from '@/components/ui/form/index';
 

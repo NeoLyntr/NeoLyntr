@@ -4,7 +4,13 @@
     import { Slider } from '@/components/ui/slider';
     import { Label } from '@/components/ui/label';
     import * as Popover from '$lib/components/ui/popover/index.js';
-    import { Pause, Play, Volume, Volume1, Volume2, VolumeX } from 'lucide-svelte';
+    //import { Pause, Play, Volume, Volume1, Volume2, VolumeX } from 'lucide-svelte';
+    import Pause from 'lucide-svelte/icons/pause';
+    import Play from 'lucide-svelte/icons/play';
+    import Volume from 'lucide-svelte/icons/volume';
+    import Volume1 from 'lucide-svelte/icons/volume-1';
+    import Volume2 from 'lucide-svelte/icons/volume-2';
+    import VolumeX from 'lucide-svelte/icons/volume-x';
     import { Button } from '@/components/ui/button';
 
     export let audioSrc: string;

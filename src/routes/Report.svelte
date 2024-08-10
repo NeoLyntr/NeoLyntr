@@ -3,7 +3,7 @@
 	import * as Dialog from '@/components/ui/dialog';
 	import { Label } from '@/components/ui/label';
 	import { Textarea } from '@/components/ui/textarea';
-	import { Flag } from 'lucide-svelte';
+	import Flag from 'lucide-svelte/icons/flag';
 	import { toast } from 'svelte-sonner';
 	import { PUBLIC_BRAND } from "$env/static/public";
 
