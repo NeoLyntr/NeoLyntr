@@ -34,6 +34,7 @@
 
 	function goHome() {
 		currentPage.set("home");
+		goto(`/`);
 	}
 
         onMount(async () => {
