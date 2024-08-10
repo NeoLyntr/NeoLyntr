@@ -164,7 +164,7 @@
 	}
 </script>
 
-<div on:click|stopPropagation={() => openLynt(id)} class="mb-2 w-full text-left">
+<div on:click|stopPropagation={() => openLynt(id)} class="mb-2 w-full text-left min-w-0">
 	<div
 		class="flex w-full gap-3 overflow-hidden rounded-xl bg-lynt-foreground p-3 transition-colors hover:bg-border"
 	>
@@ -172,7 +172,7 @@
 			<Avatar size={10} src={cdnUrl(userId, 'small')} alt="A profile picture." />
 		</a>
 
-		<div class="flex w-full max-w-[530px] flex-col gap-2">
+		<div class="flex w-full max-w-[530px] flex-col gap-2 min-w-0">
 			<!-- Lynt that actually gets displayed. Main lynt -->
 			<LyntContents
 				{truncateContent}
