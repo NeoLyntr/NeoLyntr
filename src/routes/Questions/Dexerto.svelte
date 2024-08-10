@@ -11,7 +11,7 @@
 
 <span class="select-none">Do you know this person?</span>
 <div class="flex justify-center">
-	<img src="dexerto.jpg" alt="Cat :3" class="h-40 w-40" />
+	<img src="/dexerto.jpg" alt="Cat :3" class="h-40 w-40" />
 </div>
 <RadioGroup.Root bind:value={$submittedValue}>
 	<div class="flex items-center space-x-2">

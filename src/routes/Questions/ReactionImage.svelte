@@ -11,7 +11,7 @@
 
 <span class="select-none">Have you ever used such 'reaction images'?</span>
 <div class="flex justify-center">
-	<img src="reaction.png" alt="A reaction." />
+	<img src="/reaction.png" alt="A reaction." />
 </div>
 
 <RadioGroup.Root bind:value={$submittedValue}>

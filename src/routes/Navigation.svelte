@@ -44,7 +44,7 @@
 	<button class="flex w-full items-center justify-center md:hidden" on:click={toggleMode}>
 		<img
 			class="size-8 cursor-pointer"
-			src="logo.svg"
+			src="/logo.svg"
 			alt="Logo"
 		/>
 	</button>

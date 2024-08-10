@@ -22,6 +22,7 @@
 	import { goto } from '$app/navigation';
 	import TopTab from './TopTab.svelte';
 	import type { FeedItem } from './stores';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	export let username: string;
 	export let handle: string;
@@ -217,7 +218,7 @@
 					class="md:max-w-1/3 flex w-full min-w-full flex-row items-start gap-2 px-2 py-2 md:w-auto md:flex-col md:pt-0"
 				>
 					<button class="mt-5 hidden md:block" on:click={toggleMode}>
-						<img class="mb-5 size-20 cursor-pointer" src="logo.svg" alt="Logo" />
+						<img class="mb-5 size-20 cursor-pointer" src="/logo.svg" alt="Logo" />
 					</button>
 					<Navigation {handle} {id} />
 					<div class="hidden md:flex md:w-full">
@@ -336,9 +337,9 @@
 <svelte:head>
 	{#if page === 'home'}
 		{#if selectedLynt}
-			<title>{selectedLynt.username} on Lyntr: "{selectedLynt.content}"</title>
+			<title>{selectedLynt.username} on {PUBLIC_BRAND}: "{selectedLynt.content}"</title>
 		{:else}
-			<title>Lyntr</title>
+			<title>{PUBLIC_BRAND}</title>
 		{/if}
 	{/if}
 </svelte:head>

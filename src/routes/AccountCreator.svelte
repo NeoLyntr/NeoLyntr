@@ -7,7 +7,7 @@
 
 	import IQTest from './IQTest.svelte';
 	import { toast } from 'svelte-sonner';
-	import { PUBLIC_DISCORD_CLIENT_ID } from '$env/static/public';
+	import { PUBLIC_DISCORD_CLIENT_ID, PUBLIC_BRAND } from '$env/static/public';
 
 	let loading = false;
 	let nickname = '';
@@ -73,11 +73,11 @@
 		<div class="flex flex-col items-center gap-2">
 			<div class="inline-flex items-center gap-2">
 				<img
-					src="logo.svg"
-					alt="Lyntr"
+					src="/logo.svg"
+					alt="{PUBLIC_BRAND}"
 					class="pointer-events-none h-32 w-32 select-none md:h-40 md:w-40"
 				/>
-				<Label class="select-none text-8xl">Lyntr.</Label>
+				<Label class="select-none text-8xl">{PUBLIC_BRAND}.</Label>
 			</div>
 
 			<p class="text-3xl">Welcome onboard!</p>
@@ -128,7 +128,7 @@
 						<AlertDialog.Content>
 							<AlertDialog.Header>
 								<AlertDialog.Title class="mb-2 text-2xl font-bold"
-									>Welcome to Lyntr!</AlertDialog.Title
+									>Welcome to {PUBLIC_BRAND}!</AlertDialog.Title
 								>
 								<AlertDialog.Description>
 									<div class="space-y-4">
@@ -154,7 +154,7 @@
 				{/if}
 			</div>
 			<span class="mt-4 text-left text-sm"
-				>Already have an account on Lyntr? <button
+				>Already have an account on {PUBLIC_BRAND}? <button
 					class="font-bold text-primary"
 					on:click={authLogin}>Log in</button
 				></span

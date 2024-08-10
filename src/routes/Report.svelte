@@ -5,6 +5,7 @@
 	import { Textarea } from '@/components/ui/textarea';
 	import { Flag } from 'lucide-svelte';
 	import { toast } from 'svelte-sonner';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	let min = 50;
 	let max = 2000;
@@ -81,7 +82,7 @@
 		<Dialog.Header>
 			<Dialog.Title>Report.</Dialog.Title>
 			<Dialog.Description>
-				By submitting this report, you confirm that the reported content does not belong on Lyntr.
+				By submitting this report, you confirm that the reported content does not belong on {PUBLIC_BRAND}.
 				Abuse of this system will result in the suspension of your account.
 			</Dialog.Description>
 		</Dialog.Header>

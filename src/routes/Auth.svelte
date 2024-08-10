@@ -3,7 +3,7 @@
 	import { Button } from '@/components/ui/button';
 	import Label from '@/components/ui/label/label.svelte';
 	import { mode } from 'mode-watcher';
-	import { PUBLIC_DISCORD_CLIENT_ID } from '$env/static/public';
+	import { PUBLIC_DISCORD_CLIENT_ID, PUBLIC_BRAND } from '$env/static/public';
 
 	let loading = false;
 
@@ -28,8 +28,8 @@
 <div class="flex h-dvh">
 	<div class="m-auto flex flex-col items-center gap-2">
 		<div class="inline-flex items-center gap-2">
-			<img src="logo.svg" alt="Lyntr" class="pointer-events-none h-40 w-40 select-none" />
-			<Label class="select-none text-8xl">Lyntr.</Label>
+			<img src="/logo.svg" alt="{PUBLIC_BRAND}" class="pointer-events-none h-40 w-40 select-none" />
+			<Label class="select-none text-8xl">{PUBLIC_BRAND}.</Label>
 		</div>
 
 		<Label class="text-3xl">Please log in to begin.</Label>
@@ -52,7 +52,7 @@
 					<AlertDialog.Header>
 						<AlertDialog.Title>You are soon to be redirected.</AlertDialog.Title>
 						<AlertDialog.Description>
-							Once you authorise with Discord, you will be redirected back to Lyntr.com
+							Once you authorise with Discord, you will be redirected back to {PUBLIC_BRAND}.com
 						</AlertDialog.Description>
 					</AlertDialog.Header>
 				</AlertDialog.Content>

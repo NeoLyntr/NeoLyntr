@@ -6,6 +6,7 @@
 	import { onMount } from 'svelte';
 	import LoadingSpinner from './LoadingSpinner.svelte';
 	import { toast } from 'svelte-sonner';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	let searchQuery = '';
 	let searchResults: any[] = [];
@@ -81,8 +82,8 @@
 
 <svelte:head>
 	{#if hasSearched}
-		<title>Searching for "{searchQuery}" | Lyntr</title>
+		<title>Searching for "{searchQuery}" | {PUBLIC_BRAND}</title>
 	{:else}
-		<title>Search | Lyntr</title>
+		<title>Search | {PUBLIC_BRAND}</title>
 	{/if}
 </svelte:head>

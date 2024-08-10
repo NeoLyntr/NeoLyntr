@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../../app.css';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	import {
 		Card,
@@ -18,7 +19,7 @@
 
 <Card class="mx-auto w-full max-w-3xl">
 	<CardHeader>
-		<CardTitle>Lyntr Privacy Policy</CardTitle>
+		<CardTitle>{PUBLIC_BRAND} Privacy Policy</CardTitle>
 		<CardDescription>Effective Date: July 23, 2024</CardDescription>
 	</CardHeader>
 	<CardContent>
@@ -27,7 +28,7 @@
 				<AccordionTrigger>1. Introduction</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						Welcome to Lyntr ("we," "our," or "us"), a social media platform owned and operated by
+						Welcome to {PUBLIC_BRAND} ("we," "our," or "us"), a social media platform owned and operated by
 						FaceDev. This Privacy Policy explains how we collect, use, disclose, and safeguard your
 						information when you use our service.
 					</p>

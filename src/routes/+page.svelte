@@ -9,6 +9,7 @@
 	import MainPage from './MainPage.svelte';
 	import Cookies from 'js-cookie';
 	import type { PageData } from './$types';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	let authenticated: boolean = false;
 	let loading: boolean = true;
@@ -100,7 +101,7 @@
 	{#if data.lynt}
 		<meta
 			property="og:title"
-			content="{data.lynt.username} (@{data.lynt.handle}) on Lyntr with {data.lynt.iq} IQ"
+			content="{data.lynt.username} (@{data.lynt.handle}) on {PUBLIC_BRAND} with {data.lynt.iq} IQ"
 		/>
 		<meta property="og:site_name" content={getStats()} />
 
@@ -125,6 +126,6 @@
 			/>
 		{/if}
 
-		<meta name="description" content="Lyntr is a micro-blogging social media with an IQ test." />
+		<meta name="description" content="{PUBLIC_BRAND} is a micro-blogging social media with an IQ test." />
 	{/if}
 </svelte:head>

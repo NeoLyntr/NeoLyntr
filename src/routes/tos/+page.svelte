@@ -1,5 +1,6 @@
 <script lang="ts">
 	import '../../app.css';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	import {
 		Card,
@@ -18,7 +19,7 @@
 
 <Card class="mx-auto w-full max-w-3xl">
 	<CardHeader>
-		<CardTitle>Lyntr Terms of Service</CardTitle>
+		<CardTitle>{PUBLIC_BRAND} Terms of Service</CardTitle>
 		<CardDescription>Effective Date: July 23, 2024</CardDescription>
 	</CardHeader>
 	<CardContent>
@@ -27,7 +28,7 @@
 				<AccordionTrigger>1. Acceptance of Terms</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						By accessing or using Lyntr, you agree to be bound by these Terms of Service and all
+						By accessing or using {PUBLIC_BRAND}, you agree to be bound by these Terms of Service and all
 						applicable laws and regulations. If you do not agree with any part of these terms, you
 						may not use our service.
 					</p>
@@ -38,7 +39,7 @@
 				<AccordionTrigger>2. Description of Service</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						Lyntr is a social media platform that allows users to create, share, and interact with
+						{PUBLIC_BRAND} is a social media platform that allows users to create, share, and interact with
 						short-form content called "Lynts". Our service includes features such as following other
 						users, liking and sharing content, and receiving notifications.
 					</p>
@@ -49,7 +50,7 @@
 				<AccordionTrigger>3. User Accounts</AccordionTrigger>
 				<AccordionContent>
 					<ul class="list-disc space-y-2 pl-5">
-						<li>You must be at least 13 years old to use Lyntr.</li>
+						<li>You must be at least 13 years old to use {PUBLIC_BRAND}.</li>
 						<li>
 							You are responsible for maintaining the confidentiality of your account the email and
 							token associated with it.
@@ -64,9 +65,9 @@
 				<AccordionTrigger>4. User Content</AccordionTrigger>
 				<AccordionContent>
 					<ul class="list-disc space-y-2 pl-5">
-						<li>You retain ownership of any content you post on Lyntr.</li>
+						<li>You retain ownership of any content you post on {PUBLIC_BRAND}.</li>
 						<li>
-							By posting content, you grant Lyntr a worldwide, non-exclusive, royalty-free license
+							By posting content, you grant {PUBLIC_BRAND} a worldwide, non-exclusive, royalty-free license
 							to use, reproduce, modify, and distribute your content.
 						</li>
 						<li>You are solely responsible for your content and the consequences of posting it.</li>
@@ -101,7 +102,7 @@
 				<AccordionTrigger>6. Intellectual Property</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						The Lyntr service, including its original content, features, and functionality, is
+						The {PUBLIC_BRAND} service, including its original content, features, and functionality, is
 						created and operated by FaceDev. While we haven't registered formal intellectual
 						property rights, we kindly ask users to respect our work. Users agree not to copy,
 						modify, or distribute any part of the service without explicit permission from FaceDev.
@@ -110,12 +111,12 @@
 			</AccordionItem>
 
 			<AccordionItem value="item-7">
-				<AccordionTrigger>7. Use of Lyntr Name in Projects</AccordionTrigger>
+				<AccordionTrigger>7. Use of {PUBLIC_BRAND} Name in Projects</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						If you use the Lyntr name in any extensions, projects, or related materials, you must
+						If you use the {PUBLIC_BRAND} name in any extensions, projects, or related materials, you must
 						<strong>clearly and prominently disclose</strong> that you are not affiliated with FaceDev
-						or Lyntr. This disclosure should be visible and unambiguous to avoid any confusion.
+						or {PUBLIC_BRAND}. This disclosure should be visible and unambiguous to avoid any confusion.
 					</p>
 				</AccordionContent>
 			</AccordionItem>
@@ -135,7 +136,7 @@
 				<AccordionTrigger>9. Disclaimer of Warranties</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						Lyntr is provided "as is" and "as available" without any warranties of any kind, either
+						{PUBLIC_BRAND} is provided "as is" and "as available" without any warranties of any kind, either
 						express or implied. We do not guarantee that the service will be uninterrupted, secure,
 						or error-free.
 					</p>

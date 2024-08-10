@@ -11,7 +11,7 @@
 
 <span class="select-none">Do you promise to have a cat profile picture? :3</span>
 <div class="flex justify-center">
-	<img src="cat.gif" alt="Cat :3" class="h-40 w-40" />
+	<img src="/cat.gif" alt="Cat :3" class="h-40 w-40" />
 </div>
 <RadioGroup.Root bind:value={$submittedValue}>
 	<div class="flex items-center space-x-2">

@@ -8,6 +8,7 @@
 	import { Button } from '@/components/ui/button';
 	import { toast } from 'svelte-sonner';
 	import { cdnUrl, unreadMessages } from './stores';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	interface Notification {
 		sourceUserBio: string;
@@ -213,5 +214,5 @@
 </div>
 
 <svelte:head>
-	<title>Notifications | Lyntr</title>
+	<title>Notifications | {PUBLIC_BRAND}</title>
 </svelte:head>

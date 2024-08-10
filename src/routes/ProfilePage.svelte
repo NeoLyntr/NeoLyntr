@@ -15,6 +15,7 @@
 	import { mode } from 'mode-watcher';
 	import { cdnUrl } from './stores';
 	import TopTab from './TopTab.svelte';
+	import { PUBLIC_BRAND } from "$env/static/public";
 
 	export let profileHandle: string;
 	export let handleLyntClick;
@@ -298,16 +299,16 @@
 
 <svelte:head>
 	{#if loading}
-		<title>Loading... | Lyntr</title>
+		<title>Loading... | {PUBLIC_BRAND}</title>
 	{:else if profile}
-		<title>{profile.username} (@{profile.handle}) | Lyntr</title>
+		<title>{profile.username} (@{profile.handle}) | {PUBLIC_BRAND}</title>
 		<meta property="og:title" content="{profile.username} (@{profile.handle}) | IQ: {profile.iq}" />
 		<meta property="og:type" content="website" />
 		<meta property="og:image" content="https://cdn.lyntr.com/lyntr/{profile.id}.webp" />
 		<meta property="og:url" content="https://lyntr.com/@{profile.handle}" />
 		<meta property="og:description" content="{profile.bio}" />
-		<meta name="description" content="Lyntr is a micro-blogging social media with an IQ test." />
+		<meta name="description" content="{PUBLIC_BRAND} is a micro-blogging social media with an IQ test." />
 	{:else}
-		<title>Profile not found | Lyntr</title>
+		<title>Profile not found | {PUBLIC_BRAND}</title>
 	{/if}
 </svelte:head>
