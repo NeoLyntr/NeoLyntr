@@ -73,10 +73,10 @@ DISCORD_CLIENT_SECRET=""
 ```
 
 ## Ratelimits
-For ratelimits we use [upstash redis](https://upstash.com/).
-
-Create a redis and then copy these values into your env.
-![upstash redis](github-assets/redis.png)
+WIP
+```bash
+REDIS_URL="redis://:authpassword@127.0.0.1:6379"
+```
 
 ## MinIO
 We need Min.io for images. This and the next step can be omitted if you don't need *Image support* / *reporting*.
