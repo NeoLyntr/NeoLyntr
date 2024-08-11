@@ -241,7 +241,7 @@
 						: ''}"
 				>
 					{#if page === 'search'}
-						<Search userId={id} {handleLyntClick} />
+						<Search userId={id} {handleLyntClick} myHandle={handle} />
 					{:else if page === 'notifications'}
 						<Notifications {handleLyntClick} />
 					{:else if page.startsWith('profile')}

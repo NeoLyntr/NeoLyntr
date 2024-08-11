@@ -41,7 +41,7 @@ export const redisAdapter = {
 
   smismember: (
     key: string, members: string[]
-  ): Promise<(0 | 1)[]> => 
+  ): Promise<(0 | 1)> => 
     redis.smismember(key, members),
 
   multi: () => redis.multi(),
