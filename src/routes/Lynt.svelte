@@ -133,8 +133,6 @@
 		url
 	};
 
-	let sending = false;
-
 	async function handleShare() {
 		shareSheetOpen = true;
 	}
@@ -201,30 +199,6 @@
 		} else {
 			toast(`Something happened! Error: ${response.status} | ${response.statusText}`);
 		}
-	}
-
-	async function sendTo(other_id: string) {
-		if (sending) return;
-
-		sending = true;
-		const formData = new FormData();
-		formData.append('other_id', other_id);
-		formData.append('lynt', id);
-
-		try {
-			const response = await fetch('/api/messages/post', {
-				method: 'POST',
-				body: formData
-			});
-
-			if (response.status !== 200) {
-				toast((await response.json()).error);
-			}
-		} catch (error) {
-			toast('error: ' + error);
-		}
-		sending = false;
-		shareSheetOpen = false;
 	}
 </script>
 
