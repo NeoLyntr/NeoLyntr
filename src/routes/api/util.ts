@@ -2,6 +2,7 @@ import { db } from '@/server/db';
 import { lynts, likes, followers, users, notifications, history } from '@/server/schema';
 import { and, eq, inArray, sql } from 'drizzle-orm';
 import sharp from 'sharp';
+import { isImageNsfw, NSFW_ERROR } from '@/moderation';
 
 export const lyntObj = (userId: string | null) => {
 	let payload = {
@@ -115,6 +116,31 @@ export const lyntObj = (userId: string | null) => {
 
 	return payload
 };
+
+export async function uploadCompressed(inputBuffer: Buffer, id: string, minioClient: any) {
+	if (await isImageNsfw(inputBuffer)) {
+		 return NSFW_ERROR;
+        }
+
+	const resizedBuffer = await sharp(inputBuffer, {
+		animated: true
+        })
+		.rotate()
+                .webp({ quality: 70 })
+                .withMetadata()
+                .toBuffer();
+
+        const fileName = `${id}.webp`;
+        await minioClient.putObject(
+		process.env.S3_BUCKET_NAME!,
+		fileName,
+		resizedBuffer,
+		resizedBuffer.length,
+		{
+		        'Content-Type': 'image/webp'
+                }
+        );
+}
 
 export async function uploadAvatar(inputBuffer: Buffer, fileName: string, minioClient: any) {
 	const buffer_small = await sharp(inputBuffer).resize(40, 40).webp().toBuffer();

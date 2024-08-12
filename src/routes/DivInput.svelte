@@ -1,8 +1,14 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
 	export let lynt: string = '';
 
 	$: characterCount = lynt.length;
 	$: isOverLimit = characterCount > 280;
+
+	const dispatch = createEventDispatcher<{
+		submit: {}
+	}>();
 
 	function handlePaste(event: ClipboardEvent) {
 		event.preventDefault();
@@ -13,24 +19,28 @@
 	function interfere(event: KeyboardEvent) {
 		if (event.key === 'Enter') {
 			event.preventDefault();
-			document.execCommand('insertText', false, '\n');
+			if (event.shiftKey) {
+				dispatch('submit');
+			} else {
+				document.execCommand('insertText', false, '\n');
+			}
 		}
 	}
 </script>
 
-<div class="relative">
+<div class="relative w-full">
 	<div
 		contenteditable="true"
 		role="textbox"
 		spellcheck="true"
 		tabindex="0"
 		bind:innerText={lynt}
-		class="overflow-wrap-anywhere min-h-[40px] w-full pb-6 outline-none"
+		class="overflow-wrap-anywhere w-full outline-none"
 		placeholder="What's happening?"
 		on:paste={handlePaste}
 		on:keydown={interfere}
 	/>
-	<div class="absolute bottom-1 right-1 rounded px-1 text-sm" class:text-red-500={isOverLimit}>
+	<div class="absolute bottom-1 right-1 rounded px-1 text-sm bg-secondary/70 rounded-3xl" class:text-red-500={isOverLimit} class:hidden={characterCount === 0}>
 		{characterCount}/280
 	</div>
 </div>

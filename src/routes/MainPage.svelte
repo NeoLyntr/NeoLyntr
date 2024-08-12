@@ -6,6 +6,7 @@
 	import Moon from 'lucide-svelte/icons/moon';
 	import Sun from 'lucide-svelte/icons/sun';
 	import Reply from 'lucide-svelte/icons/reply';
+	import ImageUp from 'lucide-svelte/icons/image-up';
 	import X from 'lucide-svelte/icons/x';
 
 	import { cdnUrl, v } from './stores';
@@ -14,6 +15,7 @@
 	import Lynt from './Lynt.svelte';
 	import Navigation from './Navigation.svelte';
 	import PostButton from './PostButton.svelte';
+	import DivInput from './DivInput.svelte';
 	import ProfileButton from './ProfileButton.svelte';
 	import { toggleMode } from 'mode-watcher';
 	import { onDestroy, onMount } from 'svelte';
@@ -49,6 +51,22 @@
 	let selectedLynt: FeedItem | null = null;
 	let referencedLynts: FeedItem[] = [];
 	let loadingComments = false;
+
+	let image: File | null = null;
+        let imagePreview: string | null = null;
+        let fileinput: HTMLInputElement;
+
+	const onFileSelected = (e: Event) => {
+                const target = e.target as HTMLInputElement;
+                if (target.files && target.files[0]) {
+                        image = target.files[0];
+                        let reader = new FileReader();
+                        reader.readAsDataURL(image);
+                        reader.onload = (e) => {
+                                imagePreview = e.target?.result as string;
+                        };
+                }
+        };
 
 	let currentTab = 'For you';
 	const tabs = ['For you', 'Following', 'New'];
@@ -167,24 +185,41 @@
 	}
 
 	async function postComment() {
-		const response = await fetch('api/comment', {
-			method: 'POST',
-			body: JSON.stringify({ id: selectedLynt?.id, content: comment })
-		});
-		comment = '';
+		if (comment.trim() == '' && image == null) {
+                        toast("Cannot post an empty comment.");
+                        return;
+                }
 
-		if (response.status !== 201) {
-			if (response.status == 429)
-				return toast('Woah, slow down! You are being ratelimited. Please try again in a bit.');
-			toast(
-				`Something went wrong while commenting on this lynt. Error: ${response.status} | ${response.statusText}`
-			);
-		} else {
-			toast('Your reply has been posted!');
-			comments = [(await response.json()) as FeedItem, ...comments];
-			selectedLynt.commentCount = parseInt(selectedLynt.commentCount) + 1;
-			selectedLynt = selectedLynt;
-		}
+                const formData = new FormData();
+                formData.append('id', selectedLynt?.id ?? '');
+                formData.append('content', comment);
+
+                if (image) {
+                        formData.append('image', image, image.name);
+                }
+
+                const response = await fetch('/api/comment', {
+                        method: "POST",
+                        body: formData
+                });
+
+
+                if (response.status !== 201) {
+                        if (response.status == 429)
+                                return toast('Woah, slow down! You are being ratelimited. Please try again in a bit.');
+                        toast(
+                                `Something went wrong while commenting on this lynt. Error: ${response.status} | ${response.statusText}`
+                        );
+                } else {
+	                image = null;
+			imagePreview = null;
+			fileinput.value = '';
+	                comment = '';
+                        toast('Your reply has been posted!');
+                        comments = [(await response.json()) as FeedItem, ...comments];
+                        selectedLynt.commentCount = parseInt(selectedLynt.commentCount) + 1;
+                        selectedLynt = selectedLynt;
+                }
 	}
 
 	onMount(async () => {
@@ -306,18 +341,34 @@
 							<div class="flex w-full items-center gap-2 rounded-xl bg-border p-3">
 								<Reply size={32} />
 
-								<div
-									contenteditable="true"
-									role="textbox"
-									spellcheck="true"
-									tabindex="0"
-									bind:textContent={comment}
-									class="overflow-wrap-anywhere w-full text-lg outline-none"
-									placeholder="Reply..."
-									on:paste={handlePaste}
-								/>
+							<div class="flex flex-col gap-1 w-full">
+								<DivInput bind:lynt={comment} />
 
-								<Button on:click={postComment}>Post</Button>
+								{#if imagePreview}
+			                                                <img class="max-h-[600px] w-full object-contain" src={imagePreview} alt="Preview" />
+
+			                                        {/if}
+							</div>
+
+                                <button
+                                        on:click={() => {
+                                                fileinput.click();
+
+                                        }}
+                                >
+                                        <ImageUp class="upload" />
+
+                                </button>
+				<Button on:click={postComment}>Post</Button>
+
+                                <input
+                                        style="display:none"
+                                        type="file"
+                                        accept=".jpg, .jpeg, .png, .gif"
+                                        on:change={onFileSelected}
+
+                                        bind:this={fileinput}
+                                />
 							</div>
 							<Separator />
 							{#if loadingComments}

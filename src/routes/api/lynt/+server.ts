@@ -7,7 +7,7 @@ import { eq, sql } from 'drizzle-orm';
 import { Snowflake } from 'nodejs-snowflake';
 import sharp from 'sharp';
 import { minioClient } from '@/server/minio';
-import { deleteLynt, lyntObj } from '../util';
+import { uploadCompressed, deleteLynt, lyntObj } from '../util';
 import { sendMessage } from '@/sse';
 import { isImageNsfw, moderate, NSFW_ERROR } from '@/moderation';
 import { sensitiveRatelimit } from '@/server/ratelimit';
@@ -90,30 +90,7 @@ export const POST: RequestHandler = async ({
 			const buffer = await imageFile.arrayBuffer();
 			const inputBuffer = Buffer.from(buffer);
 
-			if (await isImageNsfw(inputBuffer)) {
-				return NSFW_ERROR;
-			}
-
-			const resizedBuffer = await sharp(inputBuffer, {
-				animated: true
-			})
-				.rotate()
-				.webp({ quality: 70 })
-				.withMetadata()
-				.toBuffer();
-
-			const fileName = `${uniqueLyntId}.webp`;
-
-			await minioClient.putObject(
-				process.env.S3_BUCKET_NAME!,
-				fileName,
-				resizedBuffer,
-				resizedBuffer.length,
-				{
-					'Content-Type': 'image/webp'
-				}
-			);
-
+			await uploadCompressed(inputBuffer, uniqueLyntId, minioClient);
 			lyntValues.has_image = true;
 		}
 
