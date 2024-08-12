@@ -3,7 +3,8 @@
 	import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 	import { Input } from '@/components/ui/input';
 	import { Button } from '@/components/ui/button';
-	import { cdnUrl } from './stores';
+	import { cdnUrl, currentPage as currentPage2 } from './stores';
+	import { goto } from '$app/navigation';
 
 	import Avatar from './Avatar.svelte';
 
@@ -90,7 +91,10 @@
 			{:else}
 				<div class="mr-[-10px] flex max-h-[300px] flex-col gap-2 overflow-y-auto pr-[10px]">
 					{#each users as user (user.id)}
-						<div class="flex items-center gap-2 rounded-md bg-border p-2">
+						<button class="flex items-center gap-2 rounded-md bg-border p-2 text-left" on:click={() => {
+	currentPage2.set('profile' + user.handle);
+	goto('/@' + user.handle);
+}}>
 							<Avatar size={12} src={cdnUrl(user.id, 'medium')} alt={user.username} />
 							<div>
 								<div class="inline-flex items-center gap-2">
@@ -102,7 +106,7 @@
 								</div>
 								<p class="text-sm text-muted-foreground">@{user.handle}</p>
 							</div>
-						</div>
+						</button>
 					{/each}
 				</div>
 				<div class="mt-4 flex justify-between">
