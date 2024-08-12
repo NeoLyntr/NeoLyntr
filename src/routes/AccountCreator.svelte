@@ -77,7 +77,7 @@
 			<div class="inline-flex items-center gap-2">
 				<img
 					src="/logo.svg"
-					alt="{PUBLIC_BRAND}"
+					alt={PUBLIC_BRAND}
 					class="pointer-events-none h-20 w-20 select-none md:h-40 md:w-40"
 				/>
 				<Label class="select-none text-6xl">{PUBLIC_BRAND}.</Label>
@@ -150,17 +150,17 @@
 								</AlertDialog.Description>
 							</AlertDialog.Header>
 							<AlertDialog.Footer>
-								<AlertDialog.Action on:click={() => location.reload()} bind:disabled={canContinue}>Continue</AlertDialog.Action>
+								<AlertDialog.Action on:click={() => location.reload()} bind:disabled={canContinue}
+									>Continue</AlertDialog.Action
+								>
 							</AlertDialog.Footer>
 						</AlertDialog.Content>
 					</AlertDialog.Root>
 				{/if}
 			</div>
 			<span class="mt-4 text-left text-sm"
-				>Already have an account on {PUBLIC_BRAND}? <button
-					class="font-bold text-primary"
-					on:click={authLogin}>Log in</button
-				></span
+				>Already have an account on {PUBLIC_BRAND}?
+				<button class="font-bold text-primary" on:click={authLogin}>Log in</button></span
 			>
 		</div>
 		<Separator class="h-[1px] w-full md:h-full md:w-[1px]" />

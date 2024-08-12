@@ -30,20 +30,20 @@ export const POST: RequestHandler = async ({ request }) => {
 			return json({ error: 'User not found' }, { status: 404 });
 		}
 
-        setTimeout(async () => {
-            try {
-                const userLynts = await db
-                    .select({ id: lynts.id })
-                    .from(lynts)
-                    .where(eq(lynts.user_id, userId));
+		setTimeout(async () => {
+			try {
+				const userLynts = await db
+					.select({ id: lynts.id })
+					.from(lynts)
+					.where(eq(lynts.user_id, userId));
 
-                for (const lynt of userLynts) {
-                    await deleteLynt(lynt.id);
-                }
+				for (const lynt of userLynts) {
+					await deleteLynt(lynt.id);
+				}
 			} catch (error) {
-                console.error('Error deleting lynts:', error);
-            }
-        }, 0);
+				console.error('Error deleting lynts:', error);
+			}
+		}, 0);
 
 		return json(
 			{

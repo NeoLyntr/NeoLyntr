@@ -1,6 +1,6 @@
 <script lang="ts">
 	import '../../app.css';
-	import { PUBLIC_BRAND } from "$env/static/public";
+	import { PUBLIC_BRAND } from '$env/static/public';
 
 	import {
 		Card,
@@ -28,8 +28,8 @@
 				<AccordionTrigger>1. Introduction</AccordionTrigger>
 				<AccordionContent>
 					<p>
-						Welcome to {PUBLIC_BRAND} ("we," "our," or "us"), a social media platform owned and operated by
-						FaceDev. This Privacy Policy explains how we collect, use, disclose, and safeguard your
+						Welcome to {PUBLIC_BRAND} ("we," "our," or "us"), a social media platform owned and operated
+						by FaceDev. This Privacy Policy explains how we collect, use, disclose, and safeguard your
 						information when you use our service.
 					</p>
 				</AccordionContent>

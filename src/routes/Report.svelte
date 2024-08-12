@@ -5,7 +5,7 @@
 	import { Textarea } from '@/components/ui/textarea';
 	import Flag from 'lucide-svelte/icons/flag';
 	import { toast } from 'svelte-sonner';
-	import { PUBLIC_BRAND } from "$env/static/public";
+	import { PUBLIC_BRAND } from '$env/static/public';
 
 	let min = 50;
 	let max = 2000;

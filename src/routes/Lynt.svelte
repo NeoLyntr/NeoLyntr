@@ -212,33 +212,35 @@
 		formData.append('lynt', id);
 
 		try {
-                        const response = await fetch('/api/messages/post', {
-                                method: 'POST',
-                                body: formData
-                        });
+			const response = await fetch('/api/messages/post', {
+				method: 'POST',
+				body: formData
+			});
 
-                        if (response.status !== 200) {
-                                toast((await response.json()).error);
-                        }
-                } catch (error) {
-                        toast('error: ' + error);
-                }
+			if (response.status !== 200) {
+				toast((await response.json()).error);
+			}
+		} catch (error) {
+			toast('error: ' + error);
+		}
 		sending = false;
 		shareSheetOpen = false;
 	}
 </script>
 
-
 <Sheet.Root bind:open={shareSheetOpen}>
 	<Sheet.Trigger />
-	<Sheet.Content side="bottom" class="md:!inset-x-auto md:inset-y-0 md:left-0 md:h-full md:!w-1/3 md:border-r md:border-t-none flex flex-col gap-2 justify-between">
-		<div class="flex flex-col gap-2 max-h-1/3 mt-2">
-		<Sheet.Header>
-			<Sheet.Title>{shareData.title}</Sheet.Title>
-		</Sheet.Header>
+	<Sheet.Content
+		side="bottom"
+		class="md:border-t-none flex flex-col justify-between gap-2 md:!inset-x-auto md:inset-y-0 md:left-0 md:h-full md:!w-1/3 md:border-r"
+	>
+		<div class="max-h-1/3 mt-2 flex flex-col gap-2">
+			<Sheet.Header>
+				<Sheet.Title>{shareData.title}</Sheet.Title>
+			</Sheet.Header>
 		</div>
 		<Sheet.Footer>
-			<div class="flex flex-row gap-2 justify-center w-full">
+			<div class="flex w-full flex-row justify-center gap-2">
 				<Button variant="ghost" on:click={copyClick} class="flex flex-row gap-2">
 					<Copy />
 					Copy
@@ -260,7 +262,7 @@
 			<Avatar size={10} src={cdnUrl(userId, 'small')} alt="A profile picture." />
 		</a>
 
-		<div class="flex w-full max-w-[530px] flex-col gap-2 min-w-0">
+		<div class="flex w-full min-w-0 max-w-[530px] flex-col gap-2">
 			<!-- Lynt that actually gets displayed. Main lynt -->
 			<LyntContents
 				{truncateContent}
@@ -282,11 +284,9 @@
 
 			{#if reposted && parentId}
 				<div on:click|stopPropagation={() => openLynt(parentId)}>
-
-					<div class="rounded-lg border-2 border-primary p-4 drop-shadow max-w-full overflow-x-hidden max-w-[350px]">
-
-					
-
+					<div
+						class="max-w-[350px] max-w-full overflow-x-hidden rounded-lg border-2 border-primary p-4 drop-shadow"
+					>
 						{#if parentUserHandle}
 							<!-- reposted lynt -->
 							<LyntContents

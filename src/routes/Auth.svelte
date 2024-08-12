@@ -28,7 +28,7 @@
 <div class="flex h-dvh">
 	<div class="m-auto flex flex-col items-center gap-2">
 		<div class="inline-flex items-center gap-2">
-			<img src="/logo.svg" alt="{PUBLIC_BRAND}" class="pointer-events-none h-24 w-24 select-none" />
+			<img src="/logo.svg" alt={PUBLIC_BRAND} class="pointer-events-none h-24 w-24 select-none" />
 			<Label class="select-none text-6xl">{PUBLIC_BRAND}.</Label>
 		</div>
 

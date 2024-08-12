@@ -43,8 +43,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
 		const arrayBuffer = await file.arrayBuffer();
 		const inputBuffer = Buffer.from(arrayBuffer);
 
-		if(await isImageNsfw(inputBuffer)) {
-			return NSFW_ERROR
+		if (await isImageNsfw(inputBuffer)) {
+			return NSFW_ERROR;
 		}
 
 		// compression

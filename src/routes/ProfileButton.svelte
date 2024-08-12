@@ -42,7 +42,7 @@
 	}
 
 	function deleteAllCookies() {
-		localStorage.clear()
+		localStorage.clear();
 	}
 
 	async function logout() {

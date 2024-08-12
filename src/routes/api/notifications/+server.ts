@@ -33,7 +33,7 @@ export const GET: RequestHandler = async ({ cookies }) => {
 				sourceUserCreatedAt: users.created_at,
 				sourceUserBio: users.bio,
 				lyntContent: lynts.content,
-                                lyntId: notifications.lyntId,
+				lyntId: notifications.lyntId,
 				read: notifications.read,
 				createdAt: notifications.createdAt
 			})

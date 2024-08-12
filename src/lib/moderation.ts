@@ -29,7 +29,7 @@ export async function isImageNsfw(image: Buffer) {
 		.removeAlpha()
 		.raw()
 		.toBuffer({ resolveWithObject: true });
-	const tfImage = tf.tensor3d(new Int32Array(data), [info.height, info.width, 3], "int32");
+	const tfImage = tf.tensor3d(new Int32Array(data), [info.height, info.width, 3], 'int32');
 	const predictions = await model.classify(tfImage);
 	tfImage.dispose();
 

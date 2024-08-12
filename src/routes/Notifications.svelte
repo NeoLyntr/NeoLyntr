@@ -14,7 +14,7 @@
 	import { Button } from '@/components/ui/button';
 	import { toast } from 'svelte-sonner';
 	import { cdnUrl, unreadMessages } from './stores';
-	import { PUBLIC_BRAND } from "$env/static/public";
+	import { PUBLIC_BRAND } from '$env/static/public';
 
 	interface Notification {
 		sourceUserBio: string;
@@ -123,26 +123,26 @@
 </script>
 
 <div class="container mx-auto px-4 py-8">
-	<div class="inline-flex justify-between w-full mb-6">
-	  <h1 class="text-3xl font-bold">Notifications</h1>
-	  <Button class="ml-4" on:click={markRead}>Mark All as Read</Button>
+	<div class="mb-6 inline-flex w-full justify-between">
+		<h1 class="text-3xl font-bold">Notifications</h1>
+		<Button class="ml-4" on:click={markRead}>Mark All as Read</Button>
 	</div>
-	
+
 	<Card.Root class="mx-auto w-full bg-border">
-	  <Card.Header>
-		<Card.Title>Recent Activity</Card.Title>
-		<Card.Description>Your latest 50 notifications</Card.Description>
-	  </Card.Header>
-	  <Card.Content>
-		<ScrollArea class="h-[70vh] w-full rounded-md">
-		  <div class="pr-4">
+		<Card.Header>
+			<Card.Title>Recent Activity</Card.Title>
+			<Card.Description>Your latest 50 notifications</Card.Description>
+		</Card.Header>
+		<Card.Content>
+			<ScrollArea class="h-[70vh] w-full rounded-md">
+				<div class="pr-4">
 					<!-- Add right padding for scrollbar -->
 					{#if notifications.length === 0}
-					<p class="py-4 text-center text-muted-foreground">No notifications yet.</p>
-				  {:else}
-					<ul class="flex w-full flex-col items-center gap-4">
-					  {#each reactiveNotifications as notification (notification.id)}
-						<li class="w-full">
+						<p class="py-4 text-center text-muted-foreground">No notifications yet.</p>
+					{:else}
+						<ul class="flex w-full flex-col items-center gap-4">
+							{#each reactiveNotifications as notification (notification.id)}
+								<li class="w-full">
 									<button
 										on:click={() => {
 											if (notification.lyntId) {

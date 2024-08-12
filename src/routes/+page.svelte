@@ -9,7 +9,7 @@
 	import MainPage from './MainPage.svelte';
 	import Cookies from 'js-cookie';
 	import type { PageData } from './$types';
-	import { PUBLIC_BRAND } from "$env/static/public";
+	import { PUBLIC_BRAND } from '$env/static/public';
 
 	let authenticated: boolean = false;
 	let loading: boolean = true;
@@ -119,13 +119,16 @@
 				property="og:description"
 				content="{data.lynt.content}
 				
-				Quoting {data.lynt.parentUserUsername} (@{data.lynt
-					.parentUserHandle}) with {data.lynt.parentUserIq} IQ
+				Quoting {data.lynt.parentUserUsername} (@{data.lynt.parentUserHandle}) with {data.lynt
+					.parentUserIq} IQ
 				
 				{data.lynt.parentContent}"
 			/>
 		{/if}
 
-		<meta name="description" content="{PUBLIC_BRAND} is a micro-blogging social media with an IQ test." />
+		<meta
+			name="description"
+			content="{PUBLIC_BRAND} is a micro-blogging social media with an IQ test."
+		/>
 	{/if}
 </svelte:head>

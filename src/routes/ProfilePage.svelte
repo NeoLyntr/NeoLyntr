@@ -16,7 +16,7 @@
 	import { mode } from 'mode-watcher';
 	import { cdnUrl } from './stores';
 	import TopTab from './TopTab.svelte';
-	import { PUBLIC_BRAND } from "$env/static/public";
+	import { PUBLIC_BRAND } from '$env/static/public';
 
 	export let profileHandle: string;
 	export let handleLyntClick;
@@ -176,7 +176,7 @@
 {#if loading}
 	<LoadingSpinner />
 {:else if profile}
-	<div class="h-full w-full flex-grow overflow-hidden pl-1 min-w-0 max-w-full">
+	<div class="h-full w-full min-w-0 max-w-full flex-grow overflow-hidden pl-1">
 		<div class="mr-[-17px] h-full overflow-y-auto overflow-x-hidden pr-[17px]">
 			<div class="mt-2">
 				<div class="flex items-center justify-between px-2">
@@ -184,7 +184,7 @@
 						<Avatar size={40} src={avatar} alt={profile.username} border={true} />
 						<div class="flex flex-col gap-2">
 							<div class="inline-flex items-center gap-2">
-								<Label class="text-2xl font-bold text-primary break-all">{profile.username}</Label>
+								<Label class="break-all text-2xl font-bold text-primary">{profile.username}</Label>
 								{#if profile.verified}
 									<Tooltip.Root>
 										<Tooltip.Trigger>
@@ -202,7 +202,7 @@
 									</Tooltip.Root>
 								{/if}
 							</div>
-							<p class="text-xl text-muted-foreground break-all">@{profile.handle}</p>
+							<p class="break-all text-xl text-muted-foreground">@{profile.handle}</p>
 							<div class="w-24 w-full">
 								{#if isSelf}
 									<ProfileSettings
@@ -307,8 +307,11 @@
 		<meta property="og:type" content="website" />
 		<meta property="og:image" content="https://cdn.lyntr.com/lyntr/{profile.id}.webp" />
 		<meta property="og:url" content="https://lyntr.com/@{profile.handle}" />
-		<meta property="og:description" content="{profile.bio}" />
-		<meta name="description" content="{PUBLIC_BRAND} is a micro-blogging social media with an IQ test." />
+		<meta property="og:description" content={profile.bio} />
+		<meta
+			name="description"
+			content="{PUBLIC_BRAND} is a micro-blogging social media with an IQ test."
+		/>
 	{:else}
 		<title>Profile not found | {PUBLIC_BRAND}</title>
 	{/if}

@@ -414,5 +414,5 @@ function sanitizeNum(input: string) {
 }
 
 function sanitizeBool(input: string) {
-	return input === 'true'
+	return input === 'true';
 }

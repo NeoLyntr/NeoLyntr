@@ -70,7 +70,7 @@
 		<Button on:click={performSearch}>Search</Button>
 		<Button
 			on:click={() => {
-				searchQuery = 'from:@' + myHandle
+				searchQuery = 'from:@' + myHandle;
 				performSearch();
 			}}
 			class="ml-2">You</Button

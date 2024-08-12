@@ -50,7 +50,11 @@
 						? 'border-2 border-solid border-primary p-1.5'
 						: ''} inline-flex items-center justify-center rounded-xl font-bold text-primary {className}"
 				>
-					<svelte:component this={icon} {strokeWidth} class="w-4 h-4 md:h-6 md:w-6 {text ? 'mr-1' : ''}" />
+					<svelte:component
+						this={icon}
+						{strokeWidth}
+						class="h-4 w-4 md:h-6 md:w-6 {text ? 'mr-1' : ''}"
+					/>
 					{#if text}
 						<span>{text}</span>
 					{/if}
@@ -70,12 +74,14 @@
 			on:click={handleClick}
 			class="shit {outline
 				? 'border-2 border-solid border-primary p-1.5'
-				: ''} inline-flex items-center justify-center gap-1 rounded-xl font-bold text-primary min-w-6 min-h-6 {className}"
+				: ''} inline-flex min-h-6 min-w-6 items-center justify-center gap-1 rounded-xl font-bold text-primary {className}"
 		>
 			<svelte:component
 				this={icon}
 				{strokeWidth}
-				class="h-4 w-4 md:h-6 md:w-6 {text ? '{!small || isActive ? "hidden md:block" : ""}' : ''} {nav || !text ? 'h-6 w-6' : ''}"
+				class="h-4 w-4 md:h-6 md:w-6 {text
+					? '{!small || isActive ? "hidden md:block" : ""}'
+					: ''} {nav || !text ? 'h-6 w-6' : ''}"
 			/>
 			<span class="hidden md:block {!small || isActive ? '!block' : ''}">{text}</span>
 		</button>
@@ -90,7 +96,8 @@
 </div>
 
 <style>
-	.shit, .secondary-text {
+	.shit,
+	.secondary-text {
 		transition:
 			filter 0.2s ease-in-out,
 			border 0.2s ease-in-out,
@@ -99,7 +106,8 @@
 			color 0.1s ease-in-out;
 	}
 
-	.shit:hover ~ .secondary-text, .shit:hover {
+	.shit:hover ~ .secondary-text,
+	.shit:hover {
 		filter: drop-shadow(0 0px 20px hsl(var(--primary) / 0.8));
 		transform: rotate(3deg);
 	}
@@ -110,20 +118,20 @@
 		transform: rotate(0deg);
 	}
 
-        :global(.shit.new, .shit.new ~ .secondary-text) { 
+	:global(.shit.new, .shit.new ~ .secondary-text) {
 		animation: ding 0.5s ease-in-out;
-        }
+	}
 
-        @keyframes ding {
-           0% {
-		filter: drop-shadow(0 0px 20px hsl(var(--primary) / 0.8));
-                transform: rotate(-25deg);
-           }
-           50% {
-		filter: drop-shadow(0 0px 20px hsl(var(--primary) / 0.8));
-                transform: rotate(25deg);
-           }
-        }
+	@keyframes ding {
+		0% {
+			filter: drop-shadow(0 0px 20px hsl(var(--primary) / 0.8));
+			transform: rotate(-25deg);
+		}
+		50% {
+			filter: drop-shadow(0 0px 20px hsl(var(--primary) / 0.8));
+			transform: rotate(25deg);
+		}
+	}
 
 	@keyframes popIn {
 		0% {
