@@ -1,18 +1,21 @@
 <script lang="ts">
 	import { cdnUrl } from './stores';
 	import { Separator } from '@/components/ui/separator';
+	import { page } from '$app/stores';
 
-	//import { BarChart2, Heart, ImageUp, MessageCircle, Repeat2, Share2 } from 'lucide-svelte';
 	import BarChart2 from 'lucide-svelte/icons/bar-chart-2';
 	import Heart from 'lucide-svelte/icons/heart';
 	import ImageUp from 'lucide-svelte/icons/image-up';
 	import MessageCircle from 'lucide-svelte/icons/message-circle';
 	import Repeat2 from 'lucide-svelte/icons/repeat-2';
 	import Share2 from 'lucide-svelte/icons/share-2';
-
+	import Copy from 'lucide-svelte/icons/copy';
 	import * as Dialog from '@/components/ui/dialog/index';
 	import * as Form from '@/components/ui/form/index';
+	import { Button } from '@/components/ui/button';
+	import * as Sheet from '@/components/ui/sheet';
 
+	import LoadingSpinner from './LoadingSpinner.svelte';
 	import Avatar from './Avatar.svelte';
 	import OutlineButton from './OutlineButton.svelte';
 	import { toast } from 'svelte-sonner';
@@ -69,8 +72,10 @@
 	export let parentCreatedAt: number | null;
 	export let parentUserCreatedAt: number | null;
 	export let connect = false;
+	export let small = false;
 
 	let openDialog = false;
+	let shareSheetOpen = false;
 	let lynt = '';
 
 	async function handleRepost() {
@@ -116,10 +121,35 @@
 	let copied = false;
 	let timeoutId: ReturnType<typeof setTimeout>;
 
-	function handleShare() {
-		const url = `${window.location.origin}?id=${id}`;
-		toast('Link copied to clipboard!');
+	const url = `${$page.url.origin}?id=${id}`;
+	const shareData = {
+		title: 'Share Lynt',
+		text:
+			'Found on Lyntr!\r\n' +
+			(content.length > 30
+				? content.substring(0, 40) + '...' + (has_image ? '\r\nSee the image on Lyntr' : '')
+				: content) +
+			'\r\n',
+		url
+	};
 
+	let sending = false;
+
+	async function handleShare() {
+		shareSheetOpen = true;
+	}
+
+	async function openShare() {
+		shareSheetOpen = false;
+		if (navigator.share && (!navigator.canShare || navigator.canShare(shareData))) {
+			try {
+				await navigator.share(shareData);
+			} catch (e) {}
+		}
+	}
+
+	function copyClick() {
+		shareSheetOpen = false;
 		navigator.clipboard
 			.writeText(url)
 			.then(() => {
@@ -132,7 +162,9 @@
 			.catch((err) => {
 				console.error('Failed to copy: ', err);
 			});
+		toast('Link copied to clipboard!');
 	}
+
 	let image: File | null = null;
 	let imagePreview: string | null = null;
 	let fileinput: HTMLInputElement;
@@ -148,6 +180,7 @@
 			};
 		}
 	};
+
 	async function handlePost() {
 		const formData = new FormData();
 		formData.append('content', lynt);
@@ -169,9 +202,57 @@
 			toast(`Something happened! Error: ${response.status} | ${response.statusText}`);
 		}
 	}
+
+	async function sendTo(other_id: string) {
+		if (sending) return;
+
+		sending = true;
+		const formData = new FormData();
+		formData.append('other_id', other_id);
+		formData.append('lynt', id);
+
+		try {
+                        const response = await fetch('/api/messages/post', {
+                                method: 'POST',
+                                body: formData
+                        });
+
+                        if (response.status !== 200) {
+                                toast((await response.json()).error);
+                        }
+                } catch (error) {
+                        toast('error: ' + error);
+                }
+		sending = false;
+		shareSheetOpen = false;
+	}
 </script>
 
-<div on:click|stopPropagation={() => openLynt(id)} class="mb-2 w-full text-left min-w-0">
+
+<Sheet.Root bind:open={shareSheetOpen}>
+	<Sheet.Trigger />
+	<Sheet.Content side="bottom" class="md:!inset-x-auto md:inset-y-0 md:left-0 md:h-full md:!w-1/3 md:border-r md:border-t-none flex flex-col gap-2 justify-between">
+		<div class="flex flex-col gap-2 max-h-1/3 mt-2">
+		<Sheet.Header>
+			<Sheet.Title>{shareData.title}</Sheet.Title>
+		</Sheet.Header>
+		</div>
+		<Sheet.Footer>
+			<div class="flex flex-row gap-2 justify-center w-full">
+				<Button variant="ghost" on:click={copyClick} class="flex flex-row gap-2">
+					<Copy />
+					Copy
+				</Button>
+				<Button variant="ghost" on:click={openShare} class="flex flex-row gap-2">
+					<Share2 />
+					Other
+				</Button>
+			</div>
+		</Sheet.Footer>
+	</Sheet.Content>
+</Sheet.Root>
+
+<div on:click|stopPropagation={() => openLynt(id)} class="mb-2 w-full text-left">
 	<div
 		class="flex w-full gap-3 overflow-hidden rounded-xl bg-lynt-foreground p-3 transition-colors hover:bg-border"
 	>
@@ -195,11 +276,17 @@
 				{content}
 				{iq}
 				{userCreatedAt}
+				smaller={small}
+				on:delete
 			/>
 
 			{#if reposted && parentId}
 				<div on:click|stopPropagation={() => openLynt(parentId)}>
-					<div class="rounded-lg border-2 border-primary p-4 drop-shadow">
+
+					<div class="rounded-lg border-2 border-primary p-4 drop-shadow max-w-full overflow-x-hidden max-w-[350px]">
+
+					
+
 						{#if parentUserHandle}
 							<!-- reposted lynt -->
 							<LyntContents
@@ -216,13 +303,16 @@
 								createdAt={parentCreatedAt}
 								iq={parentUserIq}
 								userCreatedAt={parentUserCreatedAt}
+								smaller={small}
+								{reposted}
 								includeAvatar={true}
+								on:delete
 							/>
 						{/if}
 					</div>
 				</div>
 			{/if}
-			<div class="mt-2 flex items-center justify-between gap-2 mb-1">
+			<div class="mb-1 mt-2 flex items-center justify-between gap-2">
 				<div class="flex items-center gap-2">
 					<OutlineButton
 						icon={MessageCircle}
@@ -291,6 +381,7 @@
 											{userCreatedAt}
 											includeAvatar={true}
 											smaller={true}
+											on:delete
 										/>
 									</div>
 								</div>
@@ -306,6 +397,7 @@
 						on:click={handleLike}
 						isActive={likedByUser}
 						icon={Heart}
+						small={false}
 						text={formatNumber(likeCount)}
 						colorOnClick={true}
 						outline={true}

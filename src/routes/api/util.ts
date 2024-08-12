@@ -114,32 +114,32 @@ export const lyntObj = (userId: string | null) => {
     )`.as('parent_created_at')
 	};
 
-	return payload
+	return payload;
 };
 
 export async function uploadCompressed(inputBuffer: Buffer, id: string, minioClient: any) {
 	if (await isImageNsfw(inputBuffer)) {
-		 return NSFW_ERROR;
-        }
+		return NSFW_ERROR;
+	}
 
 	const resizedBuffer = await sharp(inputBuffer, {
 		animated: true
-        })
+	})
 		.rotate()
-                .webp({ quality: 70 })
-                .withMetadata()
-                .toBuffer();
+		.webp({ quality: 70 })
+		.withMetadata()
+		.toBuffer();
 
-        const fileName = `${id}.webp`;
-        await minioClient.putObject(
+	const fileName = `${id}.webp`;
+	await minioClient.putObject(
 		process.env.S3_BUCKET_NAME!,
 		fileName,
 		resizedBuffer,
 		resizedBuffer.length,
 		{
-		        'Content-Type': 'image/webp'
-                }
-        );
+			'Content-Type': 'image/webp'
+		}
+	);
 }
 
 export async function uploadAvatar(inputBuffer: Buffer, fileName: string, minioClient: any) {
@@ -186,7 +186,10 @@ export async function deleteLynt(lyntId: string) {
 	await db.delete(lynts).where(eq(lynts.id, lyntId));
 }
 
-export async function fetchReferencedLynts(userId: string | null, parentId: string | null): Promise<any[]> {
+export async function fetchReferencedLynts(
+	userId: string | null,
+	parentId: string | null
+): Promise<any[]> {
 	const referencedLynts: any[] = [];
 
 	async function fetchParent(currentParentId: string) {

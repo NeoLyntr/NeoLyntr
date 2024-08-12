@@ -11,7 +11,7 @@ import { uploadCompressed, deleteLynt, lyntObj } from '../util';
 import { sendMessage } from '@/sse';
 import { isImageNsfw, moderate, NSFW_ERROR } from '@/moderation';
 import { sensitiveRatelimit } from '@/server/ratelimit';
-import { fetchReferencedLynts } from "../util"
+import { fetchReferencedLynts } from '../util';
 
 export const POST: RequestHandler = async ({
 	request,
@@ -132,7 +132,7 @@ export const GET: RequestHandler = async ({
 				throw new Error('Invalid JWT token');
 			}
 		} catch (error) {
-			userId = null
+			userId = null;
 		}
 	}
 	const lyntId = url.searchParams.get('id');

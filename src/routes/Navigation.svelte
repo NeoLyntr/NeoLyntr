@@ -61,6 +61,7 @@
 		<OutlineButton
 			icon={item.icon}
 			text={item.label}
+			nav={true}
                         secondary={item.label === 'Notifications' && $unreadMessages > 0 ? $unreadMessages : undefined}
 			className="border-none w-full md:w-auto {item.className || ''}"
 			on:click={() => handleNavClick(item.page)}

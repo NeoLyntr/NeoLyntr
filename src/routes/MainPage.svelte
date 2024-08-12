@@ -28,7 +28,7 @@
 	import { goto } from '$app/navigation';
 	import TopTab from './TopTab.svelte';
 	import type { FeedItem } from './stores';
-	import { PUBLIC_BRAND } from "$env/static/public";
+	import { PUBLIC_BRAND } from '$env/static/public';
 
 	export let username: string;
 	export let handle: string;
@@ -53,20 +53,20 @@
 	let loadingComments = false;
 
 	let image: File | null = null;
-        let imagePreview: string | null = null;
-        let fileinput: HTMLInputElement;
+	let imagePreview: string | null = null;
+	let fileinput: HTMLInputElement;
 
 	const onFileSelected = (e: Event) => {
-                const target = e.target as HTMLInputElement;
-                if (target.files && target.files[0]) {
-                        image = target.files[0];
-                        let reader = new FileReader();
-                        reader.readAsDataURL(image);
-                        reader.onload = (e) => {
-                                imagePreview = e.target?.result as string;
-                        };
-                }
-        };
+		const target = e.target as HTMLInputElement;
+		if (target.files && target.files[0]) {
+			image = target.files[0];
+			let reader = new FileReader();
+			reader.readAsDataURL(image);
+			reader.onload = (e) => {
+				imagePreview = e.target?.result as string;
+			};
+		}
+	};
 
 	let currentTab = 'For you';
 	const tabs = ['For you', 'Following', 'New'];
@@ -186,40 +186,39 @@
 
 	async function postComment() {
 		if (comment.trim() == '' && image == null) {
-                        toast("Cannot post an empty comment.");
-                        return;
-                }
+			toast('Cannot post an empty comment.');
+			return;
+		}
 
-                const formData = new FormData();
-                formData.append('id', selectedLynt?.id ?? '');
-                formData.append('content', comment);
+		const formData = new FormData();
+		formData.append('id', selectedLynt?.id ?? '');
+		formData.append('content', comment);
 
-                if (image) {
-                        formData.append('image', image, image.name);
-                }
+		if (image) {
+			formData.append('image', image, image.name);
+		}
 
-                const response = await fetch('/api/comment', {
-                        method: "POST",
-                        body: formData
-                });
+		const response = await fetch('/api/comment', {
+			method: 'POST',
+			body: formData
+		});
 
-
-                if (response.status !== 201) {
-                        if (response.status == 429)
-                                return toast('Woah, slow down! You are being ratelimited. Please try again in a bit.');
-                        toast(
-                                `Something went wrong while commenting on this lynt. Error: ${response.status} | ${response.statusText}`
-                        );
-                } else {
-	                image = null;
+		if (response.status !== 201) {
+			if (response.status == 429)
+				return toast('Woah, slow down! You are being ratelimited. Please try again in a bit.');
+			toast(
+				`Something went wrong while commenting on this lynt. Error: ${response.status} | ${response.statusText}`
+			);
+		} else {
+			image = null;
 			imagePreview = null;
 			fileinput.value = '';
-	                comment = '';
-                        toast('Your reply has been posted!');
-                        comments = [(await response.json()) as FeedItem, ...comments];
-                        selectedLynt.commentCount = parseInt(selectedLynt.commentCount) + 1;
-                        selectedLynt = selectedLynt;
-                }
+			comment = '';
+			toast('Your reply has been posted!');
+			comments = [(await response.json()) as FeedItem, ...comments];
+			selectedLynt.commentCount = parseInt(selectedLynt.commentCount) + 1;
+			selectedLynt = selectedLynt;
+		}
 	}
 
 	onMount(async () => {
@@ -313,8 +312,12 @@
 						<button
 							class="flex w-full justify-end p-2 md:justify-start"
 							on:click={() => {
-								lyntOpened = null;
-								selectedLynt = null;
+								if (selectedLynt && selectedLynt.parentId && !selectedLynt.reposted) {
+									handleLyntClick(selectedLynt.parentId);
+								} else {
+									lyntOpened = null;
+									selectedLynt = null;
+								}
 							}}><X /></button
 						>
 						<div
@@ -341,34 +344,34 @@
 							<div class="flex w-full items-center gap-2 rounded-xl bg-border p-3">
 								<Reply size={32} />
 
-							<div class="flex flex-col gap-1 w-full">
-								<DivInput bind:lynt={comment} />
+								<div class="flex w-full flex-col gap-1">
+									<DivInput bind:lynt={comment} />
 
-								{#if imagePreview}
-			                                                <img class="max-h-[600px] w-full object-contain" src={imagePreview} alt="Preview" />
+									{#if imagePreview}
+										<img
+											class="max-h-[600px] w-full object-contain"
+											src={imagePreview}
+											alt="Preview"
+										/>
+									{/if}
+								</div>
 
-			                                        {/if}
-							</div>
+								<button
+									on:click={() => {
+										fileinput.click();
+									}}
+								>
+									<ImageUp class="upload" />
+								</button>
+								<Button on:click={postComment}>Post</Button>
 
-                                <button
-                                        on:click={() => {
-                                                fileinput.click();
-
-                                        }}
-                                >
-                                        <ImageUp class="upload" />
-
-                                </button>
-				<Button on:click={postComment}>Post</Button>
-
-                                <input
-                                        style="display:none"
-                                        type="file"
-                                        accept=".jpg, .jpeg, .png, .gif"
-                                        on:change={onFileSelected}
-
-                                        bind:this={fileinput}
-                                />
+								<input
+									style="display:none"
+									type="file"
+									accept=".jpg, .jpeg, .png, .gif"
+									on:change={onFileSelected}
+									bind:this={fileinput}
+								/>
 							</div>
 							<Separator />
 							{#if loadingComments}

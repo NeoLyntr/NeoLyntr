@@ -7,7 +7,7 @@
 	$: isOverLimit = characterCount > 280;
 
 	const dispatch = createEventDispatcher<{
-		submit: {}
+		submit: {};
 	}>();
 
 	function handlePaste(event: ClipboardEvent) {
@@ -40,7 +40,11 @@
 		on:paste={handlePaste}
 		on:keydown={interfere}
 	/>
-	<div class="absolute bottom-1 right-1 rounded px-1 text-sm bg-secondary/70 rounded-3xl" class:text-red-500={isOverLimit} class:hidden={characterCount === 0}>
+	<div
+		class="absolute bottom-1 right-1 rounded rounded-3xl bg-secondary/70 px-1 text-sm"
+		class:text-red-500={isOverLimit}
+		class:hidden={characterCount === 0}
+	>
 		{characterCount}/280
 	</div>
 </div>

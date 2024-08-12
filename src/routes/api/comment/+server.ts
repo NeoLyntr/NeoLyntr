@@ -52,9 +52,11 @@ export const POST: RequestHandler = async ({
 	const id = formData.get('id') as string;
 	const imageFile = formData.get('image') as File | null;
 
-	if (typeof content !== 'string' ||
+	if (
+		typeof content !== 'string' ||
 		content.length > 280 ||
-		(content.trim() == '' && imageFile == null)) {
+		(content.trim() == '' && imageFile == null)
+	) {
 		return json({ error: 'Invalid content' }, { status: 400 });
 	}
 
@@ -75,7 +77,7 @@ export const POST: RequestHandler = async ({
 		if (imageFile) {
 			const buffer = await imageFile.arrayBuffer();
 			const inputBuffer = Buffer.from(buffer);
-	
+
 			await uploadCompressed(inputBuffer, uniqueLyntId, minioClient);
 			lyntValues.has_image = true;
 		}
