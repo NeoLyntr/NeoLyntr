@@ -10,8 +10,8 @@
     color?: string | undefined;
     strokeWidth?: number;
     popover?: string | null;
-    small: boolean;
-    outline: boolean;
+    small?: boolean;
+    outline?: boolean;
   };
 
   let className: $$Props['class'] = undefined;
@@ -50,7 +50,7 @@
   <IconButton
     class={cn(
       outline && 'border-2 border-solid border-primary p-1.5',
-      'text-primary font-bold',
+      'text-primary-foreground font-bold',
       className
     )}
     {variant}

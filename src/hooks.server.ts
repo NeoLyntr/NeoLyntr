@@ -7,6 +7,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (!sessionId) {
     event.locals.user = null;
     event.locals.session = null;
+    event.locals.banned = null;
     return resolve(event);
   }
 
@@ -15,6 +16,7 @@ export const handle: Handle = async ({ event, resolve }) => {
   if (user && user.banned) {
     event.locals.user = null;
     event.locals.session = null;
+    event.locals.banned = { reason: user.ban_reason };
     return resolve(event);
   }
 
@@ -36,5 +38,6 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   event.locals.user = user;
   event.locals.session = session;
+  event.locals.banned = null;
   return resolve(event);
 };

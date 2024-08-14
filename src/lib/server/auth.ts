@@ -30,6 +30,7 @@ export const lucia = new Lucia(adapter, {
       iq: attributes.iq,
       verified: attributes.verified,
       banned: attributes.banned,
+      ban_reason: attributes.ban_reason,
       created_at: attributes.created_at
     };
   }

@@ -22,6 +22,12 @@ type DiscordUser = {
   global_name: string;
 };
 
+function getRedirectUrl(cookies: Parameters<PageServerLoad>[0]['cookies']) {
+  const redirect_url = cookies.get('redirect_url');
+  if (!redirect_url || !redirect_url.startsWith('/')) return '/';
+  return redirect_url ?? '/';
+}
+
 export const load: PageServerLoad = async (event) => {
   const code = event.url.searchParams.get('code');
   const state = event.url.searchParams.get('state');
@@ -55,12 +61,12 @@ export const load: PageServerLoad = async (event) => {
         ...sessionCookie.attributes
       });
 
-      throw redirect(302, '/');
+      throw redirect(302, getRedirectUrl(event.cookies));
     } else {
       event.cookies.set(
         'tmp_discord',
         JSON.stringify({
-          discordId: discordUser.id,
+          discordId: discordUser.id
         }),
         {
           path: '/',
@@ -103,6 +109,10 @@ export const actions = {
         return fail(400, { message: 'Handle (32) or username (60) are over the character limit.' });
       }
 
+      if (handle.length < 1 || username.length < 1) {
+        return fail(400, { message: 'Handle or username is under the minimum character limit.' });
+      }
+
       const userId = generateIdFromEntropySize(10);
       const cleanedHandle = handle.replace(/[^0-9a-z_-]/gi, '').toLowerCase();
 
@@ -122,7 +132,7 @@ export const actions = {
         ...sessionCookie.attributes
       });
 
-      redirect(302, '/');
+      redirect(302, getRedirectUrl(cookies));
     } catch (e) {
       console.log(e);
       redirect(302, '/login');

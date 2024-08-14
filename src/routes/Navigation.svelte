@@ -13,7 +13,7 @@
     { icon: House, label: 'Home', page: '/', className: 'hidden md:flex' },
     { icon: Search, label: 'Search', page: '/search' },
     { icon: Bell, label: 'Notification', page: '/notifications' },
-    { icon: User, label: 'Profile', page: `/profile/@{$page.data.user.handle}` }
+    { icon: User, label: 'Profile', page: '/profile' }
   ];
 </script>
 
@@ -32,7 +32,7 @@
     {#each navItems as item}
       <OutlineButton
         variant="ghost"
-        class="p-4 text-lg flex-1 md:flex-initial md:w-full md:justify-start {item.className}"
+        class="p-4 text-lg flex-1 md:flex-initial md:w-full md:justify-start text-primary {item.className}"
         icon={item.icon}
         small={true}
         outline={false}

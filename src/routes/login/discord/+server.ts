@@ -19,5 +19,13 @@ export async function GET(event: RequestEvent): Promise<Response> {
     sameSite: 'lax'
   });
 
+  event.cookies.set('redirect_url', event.url.searchParams.get('redirect_url') ?? '/', {
+    path: '/',
+    secure: !dev,
+    httpOnly: false,
+    maxAge: 60 * 10,
+    sameSite: 'lax'
+  });
+
   redirect(302, url.toString());
 }
