@@ -14,8 +14,6 @@ import { users } from '@/server/schema';
 
 type AccountInfo = {
   discordId: string;
-  username: string;
-  handle: string;
 };
 
 type DiscordUser = {
@@ -63,8 +61,6 @@ export const load: PageServerLoad = async (event) => {
         'tmp_discord',
         JSON.stringify({
           discordId: discordUser.id,
-          handle: discordUser.username,
-          username: discordUser.global_name
         }),
         {
           path: '/',
@@ -74,7 +70,10 @@ export const load: PageServerLoad = async (event) => {
         }
       );
 
-      return {};
+      return {
+        handle: discordUser.username,
+        username: discordUser.global_name
+      };
     }
   } catch (e) {
     if (e instanceof OAuth2RequestError) {
@@ -91,8 +90,8 @@ export const actions = {
       const tmp: AccountInfo = JSON.parse(cookies.get('tmp_discord')!);
 
       const data = await request.formData();
-      const username = (data.get('username') as string | null) ?? tmp.username;
-      const handle = (data.get('handle') as string | null) ?? tmp.handle;
+      const username = data.get('username') as string | null;
+      const handle = data.get('handle') as string | null;
 
       // todo get iq
 

@@ -14,7 +14,7 @@
 
   <Label class="text-[5vmin]">Please log in to begin.</Label>
 
-  <IconButton icon={LogosDiscordIcon} on:click={() => goto('/login/discord')}
+  <IconButton icon={LogosDiscordIcon} iconSize={16} on:click={() => goto('/login/discord')}
     >Login With Discord</IconButton
   >
 </div>
