@@ -3,7 +3,11 @@ import { Discord } from 'arctic';
 import { dev } from '$app/environment';
 import { users, sessions } from '@/server/schema';
 import { db } from '@/server/db';
-import { DISCORD_CLIENT_ID, DISCORD_CLIENT_SECRET, DISCORD_REDIRECT_URL } from '$env/static/private';
+import {
+  DISCORD_CLIENT_ID,
+  DISCORD_CLIENT_SECRET,
+  DISCORD_REDIRECT_URL
+} from '$env/static/private';
 import { DrizzlePostgreSQLAdapter } from '@lucia-auth/adapter-drizzle';
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);

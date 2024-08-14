@@ -91,8 +91,8 @@ export const actions = {
       const tmp: AccountInfo = JSON.parse(cookies.get('tmp_discord')!);
 
       const data = await request.formData();
-      const username = data.get('username') as string | null ?? tmp.username;
-      const handle = data.get('handle') as string | null ?? tmp.handle;
+      const username = (data.get('username') as string | null) ?? tmp.username;
+      const handle = (data.get('handle') as string | null) ?? tmp.handle;
 
       // todo get iq
 
