@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PUBLIC_BRAND, PUBLIC_TOS_OWNER, PUBLIC_BUSINESS_EMAIL } from '$env/static/public';
+  import { PUBLIC_BRAND, PUBLIC_TOS_OWNER, PUBLIC_BUSINESS_EMAIL, PUBLIC_POST_NAME } from '$env/static/public';
 
   import {
     Card,
@@ -44,12 +44,12 @@
               Account creation date, Verification status
             </li>
             <li>
-              <strong>Content Information:</strong> Lynts (posts) you create, Images and links you share,
+              <strong>Content Information:</strong> {PUBLIC_POST_NAME}s (posts) you create, Images and links you share,
               Reposts you make
             </li>
             <li>
               <strong>Interaction Data:</strong> Likes, Followers and accounts you follow, Views and
-              shares of your Lynts, Notifications
+              shares of your {PUBLIC_POST_NAME}s, Notifications
             </li>
             <li>
               <strong>Usage Information:</strong> Browsing history within the platform

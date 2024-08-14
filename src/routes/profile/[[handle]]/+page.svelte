@@ -6,7 +6,7 @@
 
 {#await $page.data.profile}
   <LoadingSpinner />
-{:then [profile]}
+{:then profile}
   {#if profile.banned}
     <span>This profile is banned.</span>
   {:else}

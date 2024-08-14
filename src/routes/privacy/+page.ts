@@ -1,10 +1,9 @@
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ parent, data }) => {
+export const load: PageLoad = async ({ parent }) => {
   await parent();
 
   return {
-    ...data,
     hideNavigation: true
   };
 };

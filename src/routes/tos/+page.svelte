@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { PUBLIC_BRAND, PUBLIC_TOS_OWNER, PUBLIC_BUSINESS_EMAIL } from '$env/static/public';
+  import { PUBLIC_BRAND, PUBLIC_TOS_OWNER, PUBLIC_BUSINESS_EMAIL, PUBLIC_POST_NAME } from '$env/static/public';
 
   import {
     Card,
@@ -39,7 +39,7 @@
         <AccordionContent>
           <p>
             {PUBLIC_BRAND} is a social media platform that allows users to create, share, and interact
-            with short-form content called "Lynts". Our service includes features such as following other
+            with short-form content called "{PUBLIC_POST_NAME}s". Our service includes features such as following other
             users, liking and sharing content, and receiving notifications.
           </p>
         </AccordionContent>
