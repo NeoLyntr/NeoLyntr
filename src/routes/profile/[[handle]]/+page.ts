@@ -4,12 +4,13 @@ import { PUBLIC_BRAND } from '$env/static/public';
 export const load: PageLoad = async ({ parent, data }) => {
   await parent();
 
+  const profile = await data.profile;
+
   return {
     ...data,
-    hideNavigation: true,
     seo: {
-      title: 'Login | ' + PUBLIC_BRAND,
-      description: 'Login into ' + PUBLIC_BRAND + '. ' + PUBLIC_BRAND +  ' is a micro-blogging social media with an IQ test.'
+      title: profile ? `${profile.username} (@${profile.handle}) |  🧠: ${profile.iq}` : 'Profile not found | ' + PUBLIC_BRAND,
+      description: profile ? profile.bio : null
     }
   };
 };

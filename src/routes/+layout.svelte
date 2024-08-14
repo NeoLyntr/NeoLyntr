@@ -6,6 +6,7 @@
   import { Toaster } from '$lib/components/ui/sonner';
   import { page } from '$app/stores';
   import Navigation from './Navigation.svelte';
+  import { PUBLIC_BRAND } from '$env/static/public';
 </script>
 
 <ModeWatcher />
@@ -24,3 +25,11 @@
     <slot />
   </div>
 </div>
+
+<svelte:head>
+  <title>{$page.data?.seo?.title ?? PUBLIC_BRAND}</title>
+  <meta property="og:title" content="{$page.data?.seo?.title ?? PUBLIC_BRAND}" />
+  <meta property="og:description" content="{$page.data?.seo?.description}" />
+  <meta name="description" content="{$page.data?.seo?.description}" />
+  <meta property="og:type" content="website" />
+</svelte:head>
